@@ -1,0 +1,174 @@
+$cardWidth: 10vw
+
+=size($w,$h:$w)
+  width: $w
+  height: $h
+=flexCenter
+  display: flex
+  justify-content: center
+  align-items: center
+=setLeftPos($l,$w:$cardWidth)
+  left: calc(#{$l} - #{$w/2})
+
+body
+  background-color: #102438
+  margin: 0
+.gameMain
+  max-width: 1920px
+  width: 100%
+  position: relative
+  margin: 0 auto
+.historyInfo
+  position: fixed
+  background-color: black
+  width: 100vw
+  height: 100vw
+  z-index: 10
+  opacity: 0
+  pointer-events: none
+  transition: .3s
+  .close
+    width: 50px
+    height: 50px
+    position: absolute
+    right: 10px
+    margin: 20px 0 10px
+    cursor: pointer
+    top: 10px
+    &::before,&::after
+      content: ''
+      position: absolute
+      width: 60%
+      height: 3px
+      background-color: #ffffff
+      left: 0
+    &::after
+      transform: rotate(45deg)
+    &::before
+      transform: rotate(-45deg)
+  .historyInfo_inner
+    width: 100%
+    height: 100%
+    margin: 0 auto
+    max-width: 1400px
+    width: 100%
+    padding: 30px 0
+  &.openHistory
+    opacity: 1
+    pointer-events: initial
+  .historyInfo_inner_userID,.historyInfo_inner_title
+    color: #ffffff
+    text-align: center
+  .historyInfo_inner_userID
+    font-size: 40px
+  .historyInfo_inner_title
+    margin: 20px 0
+.gameInfos
+  padding: 20px 0 40px
+  +flexCenter
+  > div
+    margin: 0 10px
+.gameInfos_group
+  > div
+    margin: 5px 0
+.gameInfo_amount
+  color: #ffffff
+  font-weight: bold
+  +flexCenter
+.gameInfo_time
+  color: #ffffff
+  +flexCenter
+  font-weight: bold
+.gameInfo_shffleButton,.historyButton
+  color: #ffffff
+  font-weight: bold
+  font-size: 24px
+  border-radius: 4px
+  cursor: pointer
+  border: 1px solid #ffffff
+  padding: 10px 20px
+  transition: .3s
+  display: inline-block
+  &:hover
+    background-color: #fff
+    color: black
+.betButton
+  color: #ffffff
+  right: 0
+  font-size: 24px
+  font-weight: bold
+  cursor: pointer
+  background-color: black
+  padding: 10px 30px
+  border-radius: 12px
+  letter-spacing: 4px
+  transition: .3s
+  margin: 0 20px
+  &:hover
+    color: black
+    background-color: #ffffff
+.cards
+  +flexCenter
+  max-width: 1400px
+  margin: 0 auto
+  position: relative
+.card
+  +size(200px,280px)
+  +setLeftPos(30%)
+  transform: rotateY(180deg)
+  transform-style: preserve-3d
+  transform: transform 1s
+  margin: 8px
+  box-shadow: 0px 10px 35px rgba(black,0.2)
+  &.small
+    +size(125px,180px)
+  .face
+    backface-visibility: hidden
+    background-color: #fff
+    color: black
+    +size(100%)
+    position: absolute
+    left: 0
+    top: 0
+    border-radius: 5px
+    &.front
+      transform: rotateY(180deg)
+      +flexCenter
+      font-size: 60px
+      color: black
+      position: relative
+      .top,.bottom
+        font-size: 20px
+        position: absolute
+        +flexCenter
+        flex-direction: column
+        margin: 0 3px
+      .top
+        left: 0px
+        top: 0
+        .top_suit
+          margin-top: -3px
+      .bottom
+        right: 0px
+        bottom: 0
+        flex-direction: column-reverse
+        .bottom_suit
+          transform: rotateX(180deg)
+        .bottom_num
+          transform: rotateX(180deg)
+
+    &.back
+      $colorRed: #ed4747
+      padding: 10px
+      box-sizing: border-box
+      &::before
+        content: ''
+        display: block
+        +size(100%)
+        border: 3px solid $colorRed
+        box-sizing: border-box
+        background-image: linear-gradient(-60deg, transparent 40%, $colorRed 40%, $colorRed 60%, transparent 60%), 
+        linear-gradient(60deg, transparent 40%, $colorRed 40%, $colorRed 60%, transparent 60%)
+        background-size: 8px 8px
+  &.close
+    transform: rotateY(0deg)
