@@ -2,13 +2,13 @@
   div
     .historyInfo(:class="{openHistory: openHistory}")
       .historyInfo_inner
-        .close(@click="openHistory =! openHistory") close
+        .close(@click="openHistory =! openHistory")
         .historyInfo_inner_userID Player : xxxxxx-xxxxx
         .historyInfo_inner_title 您的下注紀錄
         .cards(v-for="items in history")
           .card.small(v-for="item in items")
             .face.back
-            .face.front {{ getSymbol(item.label) }} 
+            .face.front(:class="{red: symbolRed(item.label)}") {{ getSymbol(item.label) }} 
               .top 
                 .top_num {{ item.num }}
                 .top_suit {{ getSymbol(item.label) }}
@@ -18,15 +18,15 @@
     .gameMain
       .gameInfos
         .gameInfos_group
-          .gameInfo_amount {{ status }}
-          .gameInfo_time 剩餘時間 : {{ minute }} : {{ (second).toString().length === 1 ? '0' + second : second }}
+          .gameInfos_group_amount {{ status }}
+          .gameInfos_group_time 剩餘時間 : {{ minute }} : {{ (second).toString().length === 1 ? '0' + second : second }}
         .gameInfo_shffleButton
-          span(@click="resetGame") 洗牌
+          span(@click="shuffle") 洗牌
         .historyButton(@click="openHistory =! openHistory") 歷史紀錄
       .cards(v-for="cardBox in cardBoxes")
         .card(v-for="(card,index) in cardBox" :class="{close: index === 0 || index === 4}" :data-order="card.id")
           .face.back
-          .face.front {{ getSymbol(card.label) }}
+          .face.front(:class="{red: symbolRed(card.label)}") {{ getSymbol(card.label) }}
             .top 
               .top_num {{ card.num }}
               .top_suit {{ getSymbol(card.label) }}
@@ -187,13 +187,13 @@ export default {
       ]
     }
   },
-  computed: {
-    
-  },
+  computed: {},
   methods: {
+    symbolRed(label) {
+      return label === 'hearts' || label === 'diamonds' ? true : false
+    },
     pushHistory(cardBox) {
       this.history.push(cardBox)
-      console.log(this.history)
     },
     getSymbol(label) {
       let result = this.symbols.find(s => s.label == label)
@@ -211,7 +211,7 @@ export default {
         return num
       })
     },
-    shuffle() {
+    assignCard() {
     for (let i = 0; i < this.cards.length; i++) {
       switch (i % 6) {
         case 0:
@@ -229,16 +229,16 @@ export default {
       }
     }
   },
-  resetGame() {
+  shuffle() {
     this.cardBoxes = Array.from({length: 4}, () => []);
-    this.shuffle();
+    this.assignCard();
     this.randomCards();
+    },
   },
-  },
-  mounted() {
-    this.shuffle();
+  created() {
+    this.assignCard();
+    this.randomCards();
     window.setInterval(this.getTime, 1000)
-    console.log(this.openHistory)
   }
 }
 </script>

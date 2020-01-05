@@ -1,4 +1,5 @@
 $cardWidth: 10vw
+$colorRed: #ed4747
 
 =size($w,$h:$w)
   width: $w
@@ -21,15 +22,13 @@ body
 .historyInfo
   position: fixed
   background-color: black
-  width: 100vw
-  height: 100vw
+  +size(100vw)
   z-index: 10
   opacity: 0
   pointer-events: none
   transition: .3s
   .close
-    width: 50px
-    height: 50px
+    +size(50px)
     position: absolute
     right: 10px
     margin: 20px 0 10px
@@ -38,20 +37,18 @@ body
     &::before,&::after
       content: ''
       position: absolute
-      width: 60%
-      height: 3px
+      +size(60%,3px)
       background-color: #ffffff
       left: 0
+      top: 10px
     &::after
       transform: rotate(45deg)
     &::before
       transform: rotate(-45deg)
   .historyInfo_inner
-    width: 100%
-    height: 100%
+    +size(100%,auto)
     margin: 0 auto
     max-width: 1400px
-    width: 100%
     padding: 30px 0
   &.openHistory
     opacity: 1
@@ -71,22 +68,22 @@ body
 .gameInfos_group
   > div
     margin: 5px 0
-.gameInfo_amount
+.gameInfos_group_amount
   color: #ffffff
   font-weight: bold
   +flexCenter
-.gameInfo_time
+.gameInfos_group_time
   color: #ffffff
   +flexCenter
   font-weight: bold
 .gameInfo_shffleButton,.historyButton
   color: #ffffff
   font-weight: bold
-  font-size: 24px
+  font-size: 16px
   border-radius: 4px
   cursor: pointer
   border: 1px solid #ffffff
-  padding: 10px 20px
+  padding: 6px 14px
   transition: .3s
   display: inline-block
   &:hover
@@ -95,11 +92,11 @@ body
 .betButton
   color: #ffffff
   right: 0
-  font-size: 24px
+  font-size: 20px
   font-weight: bold
   cursor: pointer
   background-color: black
-  padding: 10px 30px
+  padding: 6px 22px
   border-radius: 12px
   letter-spacing: 4px
   transition: .3s
@@ -113,15 +110,17 @@ body
   margin: 0 auto
   position: relative
 .card
-  +size(200px,280px)
+  +size(160px,220px)
   +setLeftPos(30%)
   transform: rotateY(180deg)
   transform-style: preserve-3d
   transform: transform 1s
-  margin: 8px
+  margin: 0 8px 30px
   box-shadow: 0px 10px 35px rgba(black,0.2)
   &.small
     +size(125px,180px)
+    &.red
+      color: #ed4747
   .face
     backface-visibility: hidden
     background-color: #fff
@@ -134,9 +133,11 @@ body
     &.front
       transform: rotateY(180deg)
       +flexCenter
-      font-size: 60px
+      font-size: 50px
       color: black
       position: relative
+      &.red
+        color: $colorRed
       .top,.bottom
         font-size: 20px
         position: absolute
@@ -155,10 +156,9 @@ body
         .bottom_suit
           transform: rotateX(180deg)
         .bottom_num
-          transform: rotateX(180deg)
+          transform: rotate(180deg)
 
     &.back
-      $colorRed: #ed4747
       padding: 10px
       box-sizing: border-box
       &::before
@@ -167,7 +167,7 @@ body
         +size(100%)
         border: 3px solid $colorRed
         box-sizing: border-box
-        background-image: linear-gradient(-60deg, transparent 40%, $colorRed 40%, $colorRed 60%, transparent 60%), 
+        background-image: linear-gradient(-40deg, transparent 40%, $colorRed 40%, $colorRed 60%, transparent 60%), 
         linear-gradient(60deg, transparent 40%, $colorRed 40%, $colorRed 60%, transparent 60%)
         background-size: 8px 8px
   &.close
